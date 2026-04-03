@@ -1,13 +1,27 @@
-# Password Strength Checker 🔐
+import re
 
-A simple Python project to check password strength.
+def check_password_strength(password):
+    strength = "Weak"
 
-## Features
-- Checks password length
-- Detects uppercase & lowercase
-- Detects numbers & symbols
-- Outputs: Weak / Medium / Strong
+    if len(password) >= 8:
+        if re.search("[a-z]", password) and re.search("[A-Z]", password):
+            if re.search("[0-9]", password) and re.search("[@#$%^&+=]", password):
+                strength = "Strong"
+            else:
+                strength = "Medium"
+        else:
+            strength = "Medium"
+    else:
+        strength = "Weak"
 
-## How to Run
-```bash
-python password_checker.py
+    return strength
+
+
+# User input
+password = input("Enter password: ")
+
+# Check strength
+result = check_password_strength(password)
+
+# Output
+print("Password Strength:", result)
